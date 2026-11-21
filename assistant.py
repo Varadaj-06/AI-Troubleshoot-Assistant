@@ -1,10 +1,8 @@
-
 import time
 from google import genai
 from config import GEMINI_API_KEY
 from retriever import retrieve_knowledge
 
-# Connect to Gemini
 client = genai.Client(api_key=GEMINI_API_KEY)
 
 MODEL_NAME = "gemini-3.1-flash-lite"
@@ -17,7 +15,7 @@ def troubleshoot(user_question):
     # 1. Retrieve relevant knowledge
     results = retrieve_knowledge(user_question, top_k=2)
 
-    # Keep only results within the relevance threshold
+    #Keep only results within relevance threshold
     results = [
         result for result in results
         if result["distance"] <= 1.0
@@ -31,7 +29,6 @@ def troubleshoot(user_question):
         "seconds"
     )
 
-    # 2. Handle unsupported issues
     if not results:
 
         answer = (
@@ -49,7 +46,6 @@ def troubleshoot(user_question):
             "sources": []
         }
 
-    # 3. Prepare retrieved context
     context = ""
 
     for result in results:
@@ -58,7 +54,6 @@ def troubleshoot(user_question):
             f"{result['document']}\n"
         )
 
-    # 4. Build the prompt
     prompt = f"""
 You are an AI Troubleshooting Assistant for L1/L2 technical support.
 
@@ -109,8 +104,7 @@ Suggested Resolution:
 Escalation Team:
 Escalation Condition:
 """
-
-    # 5. Stream Gemini's response
+    
     def generate_response():
 
         generation_start = time.perf_counter()
@@ -154,7 +148,7 @@ Escalation Condition:
     }
 
 
-# Test the streaming function directly
+#testing response generation directly
 if __name__ == "__main__":
 
     question = "My payment API is returning a 500 error"
