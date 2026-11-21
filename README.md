@@ -150,7 +150,7 @@ pip install -r requirements.txt
 
 ### Step 4: Configure the Gemini API key
 
-Create or update `config.py`:
+Create `config.py`:
 
 ```python
 GEMINI_API_KEY = "YOUR_GEMINI_API_KEY"
