@@ -2,7 +2,7 @@
 import streamlit as st
 from assistant import troubleshoot
 
-# ---------------- PAGE CONFIG ----------------
+
 
 st.set_page_config(
     page_title="AI Troubleshooting Assistant",
@@ -11,15 +11,11 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ---------------- SESSION STATE ----------------
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
 if "pending_question" not in st.session_state:
     st.session_state.pending_question = None
-
-# ---------------- CUSTOM CSS ----------------
 
 st.markdown("""
 <style>
@@ -35,8 +31,6 @@ st.markdown("""
     padding-top: 3rem;
     max-width: 1100px;
 }
-
-/* ---------------- SIDEBAR ---------------- */
 
 [data-testid="stSidebar"] {
     background-color: #111827;
@@ -100,7 +94,6 @@ st.markdown("""
     color: white;
 }
 
-/* ---------------- MAIN SCREEN ---------------- */
 
 .main-title {
     font-size: 34px;
@@ -125,7 +118,6 @@ st.markdown("""
     margin: 25px 0 12px 0;
 }
 
-/* ---------------- CHAT ---------------- */
 
 div[data-testid="stChatMessage"] {
     background-color: #151f31;
@@ -138,8 +130,6 @@ div[data-testid="stChatMessage"] {
 div[data-testid="stChatInput"] {
     border-color: #334155;
 }
-
-/* ---------------- SAMPLE ISSUE BUTTONS ---------------- */
 
 .stButton > button {
     background-color: #17243a;
@@ -157,7 +147,6 @@ div[data-testid="stChatInput"] {
     color: white;
 }
 
-/* ---------------- KNOWLEDGE SOURCES ---------------- */
 
 div[data-testid="stExpander"] {
     background-color: #151f31;
@@ -172,8 +161,6 @@ hr {
 </style>
 """, unsafe_allow_html=True)
 
-
-# ---------------- SIDEBAR ----------------
 
 with st.sidebar:
 
@@ -241,7 +228,6 @@ with st.sidebar:
         st.session_state.pending_question = None
         st.rerun()
 
-# ---------------- MAIN HEADER ----------------
 
 st.markdown(
     '<div class="main-title">How can I help you?</div>',
@@ -254,8 +240,6 @@ st.markdown(
     '</div>',
     unsafe_allow_html=True
 )
-
-# ---------------- SAMPLE ISSUES ----------------
 
 if not st.session_state.messages:
 
@@ -306,7 +290,6 @@ if not st.session_state.messages:
             )
             st.rerun()
 
-# ---------------- DISPLAY CHAT HISTORY ----------------
 
 for message in st.session_state.messages:
 
@@ -332,7 +315,6 @@ for message in st.session_state.messages:
                     "No sufficiently relevant knowledge source found."
                 )
 
-# ---------------- CHAT INPUT ----------------
 
 user_question = st.chat_input(
     "Describe your technical issue..."
@@ -341,7 +323,6 @@ user_question = st.chat_input(
 if user_question:
     st.session_state.pending_question = user_question
 
-# ---------------- PROCESS QUESTION ----------------
 
 if st.session_state.pending_question:
 
