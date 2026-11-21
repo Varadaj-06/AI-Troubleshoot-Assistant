@@ -1,26 +1,25 @@
-
 import json
 import chromadb
 from sentence_transformers import SentenceTransformer
 
-# Load knowledge base
+#Load knowledge base
 with open("knowledge_base.json", "r", encoding="utf-8") as file:
     knowledge_base = json.load(file)
 
-# Load embedding model
+#Load embedding model
 print("Loading embedding model...")
 
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Create ChromaDB client
+#Create ChromaDB client
 client = chromadb.PersistentClient(path="./chroma_db")
 
-# Create collection
+#Create collection
 collection = client.get_or_create_collection(
     name="troubleshooting_knowledge"
 )
 
-# Prepare documents
+#Prepare documents
 documents = []
 ids = []
 metadatas = []
@@ -46,12 +45,12 @@ for entry in knowledge_base:
         "escalation_team": entry["escalation_team"]
     })
 
-# Generate embeddings
+#Generate embeddings
 print("Generating embeddings...")
 
 embeddings = model.encode(documents).tolist()
 
-# Store in ChromaDB
+#Store in ChromaDB
 collection.upsert(
     ids=ids,
     documents=documents,
