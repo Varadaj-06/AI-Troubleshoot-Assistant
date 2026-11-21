@@ -2,23 +2,18 @@
 import chromadb
 from sentence_transformers import SentenceTransformer
 
-# Load embedding model
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Connect to existing ChromaDB
 client = chromadb.PersistentClient(path="./chroma_db")
 
-# Access collection
 collection = client.get_collection(
     name="troubleshooting_knowledge"
 )
 
 def retrieve_knowledge(question, top_k=2):
 
-    # Convert user question into embedding
     question_embedding = model.encode(question).tolist()
 
-    # Search for similar documents
     results = collection.query(
         query_embeddings=[question_embedding],
         n_results=top_k
@@ -37,7 +32,7 @@ def retrieve_knowledge(question, top_k=2):
 
     return retrieved_documents
 
-# Test the retriever
+#retriever testing
 if __name__ == "__main__":
 
     question = "Payment failed. Should I try charging the customer again?"
