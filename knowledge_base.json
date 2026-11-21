@@ -1,0 +1,488 @@
+[
+  {
+    "id": "KB001",
+    "issue": "Payment API returning HTTP 500",
+    "category": "Payment",
+    "symptoms": [
+      "Payment API returns 500 Internal Server Error",
+      "Transactions fail unexpectedly",
+      "Payment requests are unsuccessful"
+    ],
+    "diagnostic_checks": [
+      "Check application logs for exceptions",
+      "Verify payment service health",
+      "Check dependent services and database connectivity",
+      "Review recent application deployments"
+    ],
+    "resolution_steps": [
+      "Identify the exception from application logs",
+      "Verify that dependent services are operational",
+      "Check recent configuration or deployment changes",
+      "Escalate unresolved application errors to the engineering team"
+    ],
+    "escalation_team": "Payment Engineering Team",
+    "escalation_condition": "Escalate if payment failures continue after initial checks or affect multiple transactions."
+  },
+  {
+    "id": "KB002",
+    "issue": "Database connection failure",
+    "category": "Database",
+    "symptoms": [
+      "Database connection refused",
+      "Connection timeout",
+      "Connection pool exhausted",
+      "Application cannot retrieve records"
+    ],
+    "diagnostic_checks": [
+      "Verify database server availability",
+      "Check database connection settings",
+      "Inspect active database connections",
+      "Review database logs"
+    ],
+    "resolution_steps": [
+      "Confirm database server availability",
+      "Verify hostname, port and credentials",
+      "Inspect connection pool utilization",
+      "Escalate persistent database failures to the DBA team"
+    ],
+    "escalation_team": "Database Administration Team",
+    "escalation_condition": "Escalate if the database remains unavailable or connection failures persist."
+  },
+  {
+    "id": "KB003",
+    "issue": "OTP not received",
+    "category": "Authentication",
+    "symptoms": [
+      "User does not receive OTP",
+      "OTP delivery is delayed",
+      "SMS delivery fails"
+    ],
+    "diagnostic_checks": [
+      "Verify registered mobile number",
+      "Check SMS gateway status",
+      "Review OTP generation logs",
+      "Check SMS delivery status"
+    ],
+    "resolution_steps": [
+      "Verify the registered mobile number",
+      "Check whether OTP generation was successful",
+      "Inspect SMS gateway delivery logs",
+      "Escalate repeated delivery failures to the messaging team"
+    ],
+    "escalation_team": "Authentication Support Team",
+    "escalation_condition": "Escalate if OTP generation or delivery continues to fail."
+  },
+  {
+    "id": "KB004",
+    "issue": "Payment API timeout",
+    "category": "Payment",
+    "symptoms": [
+      "Payment requests time out",
+      "API response takes too long",
+      "Payment gateway does not respond"
+    ],
+    "diagnostic_checks": [
+      "Check API response times",
+      "Review payment gateway availability",
+      "Inspect network connectivity",
+      "Check application timeout configuration"
+    ],
+    "resolution_steps": [
+      "Check payment gateway health",
+      "Inspect API latency and application logs",
+      "Verify network connectivity",
+      "Escalate persistent gateway timeouts to the payment engineering team"
+    ],
+    "escalation_team": "Payment Engineering Team",
+    "escalation_condition": "Escalate if timeouts continue or multiple payment requests are affected."
+  },
+  {
+    "id": "KB005",
+    "issue": "Server CPU utilization is high",
+    "category": "Infrastructure",
+    "symptoms": [
+      "Application responds slowly",
+      "High CPU utilization",
+      "Server performance degradation"
+    ],
+    "diagnostic_checks": [
+      "Check CPU utilization metrics",
+      "Identify processes consuming high CPU",
+      "Review application logs",
+      "Check recent traffic increases"
+    ],
+    "resolution_steps": [
+      "Identify resource-intensive processes",
+      "Review recent traffic and application changes",
+      "Check for abnormal background jobs",
+      "Escalate persistent resource issues to the infrastructure team"
+    ],
+    "escalation_team": "Infrastructure Operations Team",
+    "escalation_condition": "Escalate if high CPU utilization persists or affects application availability."
+  },
+  {
+    "id": "KB006",
+    "issue": "Network connectivity failure",
+    "category": "Network",
+    "symptoms": [
+      "Application cannot reach external service",
+      "Connection timeout",
+      "Network unreachable error"
+    ],
+    "diagnostic_checks": [
+      "Check network connectivity",
+      "Verify DNS resolution",
+      "Check firewall rules",
+      "Inspect network error logs"
+    ],
+    "resolution_steps": [
+      "Verify network connectivity",
+      "Check DNS configuration",
+      "Inspect firewall and routing rules",
+      "Escalate persistent connectivity issues to the network team"
+    ],
+    "escalation_team": "Network Operations Team",
+    "escalation_condition": "Escalate if connectivity cannot be restored after initial checks."
+  },
+  {
+    "id": "KB007",
+    "issue": "Payment declined despite successful debit",
+    "category": "Payment",
+    "symptoms": [
+      "Customer account shows a debit but payment is marked failed",
+      "Payment confirmation is missing",
+      "Transaction status differs between bank and application",
+      "Customer asks whether a failed payment should be retried",
+      "User wants to initiate another payment after a failed transaction",
+      "Uncertainty about whether the original payment was completed",
+      "Concern about charging the customer again"
+    ],
+    "diagnostic_checks": [
+      "Record the transaction reference and timestamp",
+      "Check the payment transaction status in the authorized payment system",
+      "Review gateway response and callback logs",
+      "Check whether a reversal or refund status is recorded",
+      "Verify the final transaction status before attempting another payment"
+    ],
+    "resolution_steps": [
+      "Do not initiate a duplicate charge while the original transaction is unresolved",
+      "Verify the final transaction status using the approved payment system",
+      "If status is pending, follow the documented reconciliation process",
+      "Escalate mismatched debit and payment statuses to the payment operations team"
+    ],
+    "escalation_team": "Payment Operations Team",
+    "escalation_condition": "Escalate if the debit is confirmed but the transaction status remains failed or unclear after reconciliation checks."
+  },
+  {
+    "id": "KB008",
+    "issue": "Duplicate payment transaction",
+    "category": "Payment",
+    "symptoms": [
+      "Customer reports being charged more than once",
+      "Multiple transaction references exist for one purchase",
+      "Duplicate payment notifications are received"
+    ],
+    "diagnostic_checks": [
+      "Collect all transaction references and timestamps",
+      "Compare transaction amounts and merchant references",
+      "Check whether both transactions are captured or one is only pending",
+      "Review retry and payment request logs"
+    ],
+    "resolution_steps": [
+      "Verify the status of each transaction in the authorized payment system",
+      "Do not manually issue a refund without following the approved refund process",
+      "Identify whether duplicate requests originated from client retries or gateway processing",
+      "Escalate confirmed duplicate captures to payment operations"
+    ],
+    "escalation_team": "Payment Operations Team",
+    "escalation_condition": "Escalate when multiple captures are confirmed or transaction statuses cannot be reconciled."
+  },
+  {
+    "id": "KB009",
+    "issue": "Payment status stuck as pending",
+    "category": "Payment",
+    "symptoms": [
+      "Transaction remains pending for an unusually long time",
+      "No final success or failure response is displayed",
+      "Merchant system has not received a final payment status"
+    ],
+    "diagnostic_checks": [
+      "Check transaction reference and creation time",
+      "Review payment gateway status",
+      "Inspect callback or webhook delivery logs",
+      "Check reconciliation status in the authorized payment system"
+    ],
+    "resolution_steps": [
+      "Verify the transaction's latest status before retrying",
+      "Check whether the gateway callback was received and processed",
+      "Follow the approved transaction reconciliation procedure",
+      "Escalate unresolved pending transactions to payment operations"
+    ],
+    "escalation_team": "Payment Operations Team",
+    "escalation_condition": "Escalate if the transaction remains pending beyond the configured processing window or status cannot be confirmed."
+  },
+  {
+    "id": "KB010",
+    "issue": "API returning HTTP 401 Unauthorized",
+    "category": "API",
+    "symptoms": [
+      "API responds with HTTP 401",
+      "Requests fail authentication",
+      "Previously working API calls are rejected"
+    ],
+    "diagnostic_checks": [
+      "Verify that the request includes the required authentication header",
+      "Check token expiry and validity using the approved authentication process",
+      "Confirm the configured authentication method",
+      "Review authentication service logs"
+    ],
+    "resolution_steps": [
+      "Obtain or refresh credentials through the approved process",
+      "Verify the authorization header format without exposing secrets",
+      "Confirm that the application is using the intended environment and credentials",
+      "Escalate persistent authentication failures to the API or identity team"
+    ],
+    "escalation_team": "API Support Team",
+    "escalation_condition": "Escalate if valid credentials still receive 401 responses or authentication service errors are observed."
+  },
+  {
+    "id": "KB011",
+    "issue": "API returning HTTP 403 Forbidden",
+    "category": "API",
+    "symptoms": [
+      "API responds with HTTP 403",
+      "Authenticated user cannot access an endpoint",
+      "Access is denied for a specific operation"
+    ],
+    "diagnostic_checks": [
+      "Verify the authenticated identity",
+      "Check assigned roles and permissions",
+      "Review endpoint access policies",
+      "Inspect API gateway or authorization logs"
+    ],
+    "resolution_steps": [
+      "Confirm the user or service account has the required permission",
+      "Request access changes through the approved access-management process",
+      "Verify the endpoint and environment being called",
+      "Escalate unexpected authorization denials to the API or security team"
+    ],
+    "escalation_team": "API Support Team",
+    "escalation_condition": "Escalate if permissions appear correct but access remains denied, or if an access-policy issue is suspected."
+  },
+  {
+    "id": "KB012",
+    "issue": "API returning HTTP 404 Not Found",
+    "category": "API",
+    "symptoms": [
+      "API responds with HTTP 404",
+      "Requested resource or endpoint cannot be found",
+      "An API route that previously worked is unavailable"
+    ],
+    "diagnostic_checks": [
+      "Verify the request URL and endpoint path",
+      "Check HTTP method and API version",
+      "Confirm that the requested resource identifier exists",
+      "Review routing or deployment changes"
+    ],
+    "resolution_steps": [
+      "Correct any invalid path or resource identifier",
+      "Use the documented endpoint and supported HTTP method",
+      "Confirm the intended API version and environment",
+      "Escalate if a valid endpoint is still unavailable"
+    ],
+    "escalation_team": "API Support Team",
+    "escalation_condition": "Escalate if the documented endpoint or existing resource continues to return 404 after validation."
+  },
+  {
+    "id": "KB013",
+    "issue": "Application returning HTTP 502 Bad Gateway",
+    "category": "API",
+    "symptoms": [
+      "API gateway responds with HTTP 502",
+      "Upstream service response is unavailable or invalid",
+      "Requests fail at the gateway or proxy layer"
+    ],
+    "diagnostic_checks": [
+      "Check API gateway or reverse proxy health",
+      "Verify upstream service availability",
+      "Review gateway and upstream application logs",
+      "Check recent routing, deployment, or configuration changes"
+    ],
+    "resolution_steps": [
+      "Confirm the upstream service is running and reachable",
+      "Review gateway routing and upstream configuration",
+      "Correlate gateway errors with upstream service logs",
+      "Escalate persistent gateway failures to the platform or API engineering team"
+    ],
+    "escalation_team": "API Engineering Team",
+    "escalation_condition": "Escalate if the upstream service is healthy but gateway errors continue, or multiple endpoints are affected."
+  },
+  {
+    "id": "KB014",
+    "issue": "Database query execution is slow",
+    "category": "Database",
+    "symptoms": [
+      "Application pages or operations load slowly when accessing records",
+      "Database queries take longer than expected",
+      "Query latency has increased"
+    ],
+    "diagnostic_checks": [
+      "Identify the slow query and its execution time",
+      "Review database performance metrics",
+      "Inspect the query execution plan where access is authorized",
+      "Check database load and recent schema or application changes"
+    ],
+    "resolution_steps": [
+      "Capture the affected query and relevant timing details",
+      "Review the execution plan with the DBA team",
+      "Check whether appropriate indexes and query patterns are being used",
+      "Escalate persistent query performance issues to database administration"
+    ],
+    "escalation_team": "Database Administration Team",
+    "escalation_condition": "Escalate if query latency remains high or affects critical application operations."
+  },
+  {
+    "id": "KB015",
+    "issue": "Database connection pool exhausted",
+    "category": "Database",
+    "symptoms": [
+      "Application reports no available database connections",
+      "Requests wait for a database connection or fail",
+      "Connection pool utilization remains at its limit"
+    ],
+    "diagnostic_checks": [
+      "Check current and maximum pool utilization",
+      "Review connection acquisition timeouts",
+      "Inspect application logs for unclosed or long-running connections",
+      "Check database connection limits and active sessions"
+    ],
+    "resolution_steps": [
+      "Identify services or operations holding connections for too long",
+      "Review connection lifecycle and ensure connections are released correctly",
+      "Compare configured pool limits with database limits",
+      "Escalate persistent exhaustion to application engineering and the DBA team"
+    ],
+    "escalation_team": "Application Engineering and Database Administration Teams",
+    "escalation_condition": "Escalate if the pool remains exhausted after initial checks or increasing demand affects application availability."
+  },
+  {
+    "id": "KB016",
+    "issue": "Login authentication failure",
+    "category": "Authentication",
+    "symptoms": [
+      "User cannot log in with expected credentials",
+      "Login requests are rejected",
+      "Authentication errors appear during sign-in"
+    ],
+    "diagnostic_checks": [
+      "Confirm the user is using the correct account identifier",
+      "Check authentication service availability",
+      "Review authentication logs for the failure reason",
+      "Check whether the account is locked or disabled"
+    ],
+    "resolution_steps": [
+      "Guide the user through the approved password-reset process if credentials are incorrect",
+      "Verify account status through the authorized support process",
+      "Check identity service health",
+      "Escalate repeated failures affecting multiple users to the identity team"
+    ],
+    "escalation_team": "Identity and Access Management Team",
+    "escalation_condition": "Escalate if the account is active and credentials are valid but authentication continues to fail, or multiple users are affected."
+  },
+  {
+    "id": "KB017",
+    "issue": "User account temporarily locked",
+    "category": "Authentication",
+    "symptoms": [
+      "User receives an account locked message",
+      "Login is blocked after repeated failed attempts",
+      "Authentication fails even when the user believes the password is correct"
+    ],
+    "diagnostic_checks": [
+      "Verify the account status using the approved support console",
+      "Review recent failed login attempts",
+      "Check applicable account lockout policy",
+      "Determine whether repeated attempts are coming from a known device or service"
+    ],
+    "resolution_steps": [
+      "Follow the approved identity-verification procedure",
+      "Use the authorized account-unlock process if permitted",
+      "Guide the user to reset credentials if required by policy",
+      "Escalate suspected unauthorized activity to the security team"
+    ],
+    "escalation_team": "Identity and Access Management Team",
+    "escalation_condition": "Escalate if the account repeatedly locks after being unlocked or suspicious login activity is detected."
+  },
+  {
+    "id": "KB018",
+    "issue": "Server disk space running low",
+    "category": "Infrastructure",
+    "symptoms": [
+      "Disk utilization approaches its configured threshold",
+      "Application logs or files cannot be written",
+      "Services report insufficient disk space"
+    ],
+    "diagnostic_checks": [
+      "Check filesystem and volume utilization",
+      "Identify directories consuming significant space",
+      "Review log and temporary-file growth",
+      "Check disk-space monitoring alerts"
+    ],
+    "resolution_steps": [
+      "Identify the source of disk growth",
+      "Follow approved log-retention and cleanup procedures",
+      "Do not delete application or system files without authorization",
+      "Escalate if additional capacity or storage maintenance is required"
+    ],
+    "escalation_team": "Infrastructure Operations Team",
+    "escalation_condition": "Escalate if disk utilization reaches the critical threshold, services are affected, or safe cleanup is insufficient."
+  },
+  {
+    "id": "KB019",
+    "issue": "Application server unexpectedly restarting",
+    "category": "Infrastructure",
+    "symptoms": [
+      "Application service restarts without a planned deployment",
+      "Users experience brief service interruptions",
+      "Service uptime or process monitoring shows repeated restarts"
+    ],
+    "diagnostic_checks": [
+      "Check service and system event logs around the restart time",
+      "Review process exit codes and crash reports",
+      "Check memory and CPU metrics",
+      "Review recent deployments, configuration changes, and infrastructure events"
+    ],
+    "resolution_steps": [
+      "Correlate restart times with logs and monitoring alerts",
+      "Identify whether the restart was caused by a crash, resource limit, or planned operation",
+      "Follow the approved service recovery procedure",
+      "Escalate recurring unexplained restarts to the application or infrastructure engineering team"
+    ],
+    "escalation_team": "Infrastructure Operations Team",
+    "escalation_condition": "Escalate if restarts repeat, cause service disruption, or the root cause cannot be identified."
+  },
+  {
+    "id": "KB020",
+    "issue": "DNS resolution failure",
+    "category": "Network",
+    "symptoms": [
+      "Hostname cannot be resolved",
+      "Application cannot connect using a service hostname",
+      "DNS lookup returns an error or times out"
+    ],
+    "diagnostic_checks": [
+      "Check DNS lookup results for the affected hostname",
+      "Verify the configured DNS resolver",
+      "Compare hostname resolution from an affected and an unaffected environment where permitted",
+      "Review DNS and network monitoring alerts"
+    ],
+    "resolution_steps": [
+      "Confirm the hostname is correct",
+      "Verify the configured DNS resolver and network reachability",
+      "Check the relevant DNS record through the authorized DNS management process",
+      "Escalate persistent resolution failures to the network team"
+    ],
+    "escalation_team": "Network Operations Team",
+    "escalation_condition": "Escalate if valid hostnames continue to fail resolution or multiple services are affected."
+  }
+]
